@@ -12,7 +12,8 @@ defmodule NeoscanWeb.Api do
   alias Neoscan.Transactions
   alias Neoscan.Addresses
   alias Neoscan.BlockGasGeneration
-
+  alias NeoscanWeb.CommonView
+  
   def get_balance(address_hash) do
     balances = Addresses.get_balances(address_hash)
     unspent = Transactions.get_unspent_vouts(address_hash)
@@ -217,6 +218,27 @@ defmodule NeoscanWeb.Api do
     }
   end
 
+  #defp render_op(scripts) do
+  #  %{
+  #    invocation: CommonView.parse_invocation(find_invocation(scripts)),
+  #    verification: CommonView.parse_verification(find_verification(scripts))
+  #  }
+  #end
+
+  defp find_invocation(scripts) do
+    Enum.find(scripts, fn(script) ->
+      CommonView.check_if_invocation(script)
+    end)
+  end
+
+  #defp find_verification(scripts) do
+  #  Enum.find(scripts, fn(script) ->
+  #    CommonView.check_if_verification(script)
+  #  end)
+  #end
+
+  defp get_opcode_invocation(scripts), do: CommonView.parse_invocation(find_invocation(scripts))
+
   defp render_claim(vout) do
     %{
       value: vout.value,
@@ -233,6 +255,8 @@ defmodule NeoscanWeb.Api do
       :attributes => transaction.extra["attributes"] || [],
       :net_fee => transaction.net_fee,
       :scripts => transaction.extra["scripts"] || [],
+      #:op_scripts => Enum.map(transaction.extra["scripts"], &render_op/1),
+      :invocation_op_script => get_opcode_invocation(transaction.extra["scripts"]),
       :size => transaction.size,
       :sys_fee => transaction.sys_fee,
       :type => Macro.camelize(transaction.type),
