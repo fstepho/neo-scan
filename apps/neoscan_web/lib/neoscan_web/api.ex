@@ -237,7 +237,7 @@ defmodule NeoscanWeb.Api do
   #  end)
   #end
 
-  defp get_opcode_invocation(scripts), do: CommonView.parse_script(find_invocation(scripts))
+  defp get_opcode_script(scripts), do: CommonView.parse_script(scripts)
 
   defp render_claim(vout) do
     %{
@@ -256,7 +256,7 @@ defmodule NeoscanWeb.Api do
       :net_fee => transaction.net_fee,
       :scripts => transaction.extra["scripts"] || [],
       #:op_scripts => Enum.map(transaction.extra["scripts"], &render_op/1),
-      :invocation_op_script => get_opcode_invocation(transaction.extra["scripts"]),
+      :opcode_script => get_opcode_script(transaction.extra["scripts"]),
       :size => transaction.size,
       :sys_fee => transaction.sys_fee,
       :type => Macro.camelize(transaction.type),
