@@ -1,4 +1,4 @@
-version: "2"
+version: "3.2"
 services:
   postgres:
     image: postgres
@@ -7,6 +7,8 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    networks:
+      - internal
 
   phoenix:
     container_name: "phoenixdev"
@@ -14,5 +16,19 @@ services:
     command: sh -c "while true; do echo Alive; sleep 100; done"
     volumes:
       - ./:/data
-    ports:
-      - 4000:4000
+    networks:
+      - web
+      - internal
+    labels:  # used for Traefik dynamic configuration
+      - traefik.enable=true
+      - traefik.backend=phoenix
+      - traefik.frontend.rule=Host:neoscan.blockshain.com
+      - traefik.port=4000
+      - "traefik.docker.network=web"
+
+networks:
+  web:
+    external:
+      name: web
+  internal:
+    driver: bridge

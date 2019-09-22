@@ -7,7 +7,7 @@ export CPU_REQUEST="200m"
 export REPLICAS=1
 export DB_DATABASE=neoscan-io
 export WORKLOAD_NAME=sync-neoscan-io
-export HOST=api.neoscan.io
+export HOST=api.blockshain.com
 export POOL_SIZE=20
 export REGISTRY_PATH=${SYNC_REGISTRY_PATH}
 envsubst < deployment.yaml > deployment-sync-neoscan-io.yaml

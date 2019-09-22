@@ -15,14 +15,14 @@
 
 	<!-- Open graph protocol data -->
 	<meta property="og:title" content="NeoScan - NEO Blockchain Explorer" />
-	<meta property="og:url" content="[neoscan.io]" />
+	<meta property="og:url" content="[neoscan.blockshain.com]" />
 	<meta property="og:type" content="website" />
 	<meta property="og:description" content="A blockchain explorer for the NEO project. Track blocks, addresses, balances, transactions, NEO, GAS and other assets on the platform." />
 	<meta property="og:image" content="<%= static_path(@conn, "/images/coz.png") %>" />
 		
 	<!-- Twitter card data -->
 	<meta name="twitter:title" content="NeoScan - NEO Blockchain Explorer"/>
-	<meta name="twitter:url" content="[neoscan.io]">
+	<meta name="twitter:url" content="[neoscan.blockshain.com]">
 	<meta name="twitter:description" content="A blockchain explorer for the NEO project. Track blocks, addresses, balances, transactions, NEO, GAS and other assets on the platform." />
 	<meta name="twitter:card" content="summary"/>
 	<meta name="twitter:image" content="<%= static_path(@conn, "/images/coz.png") %>"/>

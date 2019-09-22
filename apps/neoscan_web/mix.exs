@@ -75,7 +75,7 @@ defmodule NeoscanWeb.Mixfile do
 
   def blue_bird_info do
     [
-      host: "https://neoscan.io",
+      host: "https://neoscan.blockshain.com",
       title: "NEOSCAN API",
       description: """
       Main API for accessing data from the explorer. All data is provided through GET requests in `/api/main_net/v1`.
