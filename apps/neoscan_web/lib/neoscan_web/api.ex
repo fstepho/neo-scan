@@ -237,7 +237,7 @@ defmodule NeoscanWeb.Api do
   #  end)
   #end
 
-  defp get_opcode_invocation(scripts), do: CommonView.parse_invocation(find_invocation(scripts))
+  defp get_opcode_invocation(scripts), do: CommonView.parse_script(find_invocation(scripts))
 
   defp render_claim(vout) do
     %{
