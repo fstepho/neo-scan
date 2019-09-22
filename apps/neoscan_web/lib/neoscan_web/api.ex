@@ -256,7 +256,7 @@ defmodule NeoscanWeb.Api do
       :net_fee => transaction.net_fee,
       :scripts => transaction.extra["scripts"] || [],
       #:op_scripts => Enum.map(transaction.extra["scripts"], &render_op/1),
-      :opcode_script => get_opcode_script(transaction.extra["scripts"]),
+      :opcode_script => get_opcode_script(transaction.extra["script"]),
       :size => transaction.size,
       :sys_fee => transaction.sys_fee,
       :type => Macro.camelize(transaction.type),
