@@ -225,11 +225,11 @@ defmodule NeoscanWeb.Api do
   #  }
   #end
 
-  defp find_invocation(scripts) do
-    Enum.find(scripts, fn(script) ->
-      CommonView.check_if_invocation(script)
-    end)
-  end
+  #defp find_invocation(scripts) do
+  #  Enum.find(scripts, fn(script) ->
+  #    CommonView.check_if_invocation(script)
+  #  end)
+  #end
 
   #defp find_verification(scripts) do
   #  Enum.find(scripts, fn(script) ->
