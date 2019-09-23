@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   postgres:
-    image: postgres
+    image: postgres:11
     ports:
       - 5432:5432
     environment:
@@ -9,6 +9,10 @@ services:
       POSTGRES_PASSWORD: postgres
     networks:
       - internal
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
 
   phoenix:
     container_name: "phoenixdev"
@@ -34,3 +38,6 @@ networks:
       name: web
   internal:
     driver: bridge
+
+volumes:
+  postgres:
