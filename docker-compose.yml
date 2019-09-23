@@ -16,6 +16,8 @@ services:
     command: sh -c "while true; do echo Alive; sleep 100; done"
     volumes:
       - ./:/data
+    ports:
+      - 4000:4000
     networks:
       - web
       - internal
