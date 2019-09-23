@@ -13,7 +13,7 @@ services:
   phoenix:
     container_name: "phoenixdev"
     image: bitwalker/alpine-elixir-phoenix:1.7.3
-    command: sh -c "while true; do echo Alive; sleep 100; done"
+    command: sh -c "cd /data/apps/neoscan_web && mix phx.server"
     volumes:
       - ./:/data
     ports:
@@ -27,7 +27,6 @@ services:
       - traefik.frontend.rule=Host:neoscan.blockshain.com
       - traefik.port=4000
       - "traefik.docker.network=web"
-    command: cd /data/apps/neoscan_web && mix phx.server
 
 networks:
   web:
