@@ -27,6 +27,7 @@ services:
       - traefik.frontend.rule=Host:neoscan.blockshain.com
       - traefik.port=4000
       - "traefik.docker.network=web"
+    command: cd /data/apps/neoscan_web && mix phx.server
 
 networks:
   web:
