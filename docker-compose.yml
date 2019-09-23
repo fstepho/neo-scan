@@ -9,10 +9,6 @@ services:
       POSTGRES_PASSWORD: postgres
     networks:
       - internal
-    volumes:
-      - type: volume
-        source: postgres
-        target: /var/lib/postgresql/data
 
   phoenix:
     container_name: "phoenixdev"
@@ -38,6 +34,3 @@ networks:
       name: web
   internal:
     driver: bridge
-
-volumes:
-  postgres:
