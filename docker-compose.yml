@@ -13,7 +13,7 @@ services:
   phoenix:
     container_name: "phoenixdev"
     image: bitwalker/alpine-elixir-phoenix:1.7.3
-    command: sh -c "cd /data/apps/neoscan_web && mix phx.server --force"
+    command: sh -c "cd /data/apps/neoscan_web && mix local.hex --force && mix deps.update tzdata && mix phx.server"
     volumes:
       - ./:/data
     ports:
