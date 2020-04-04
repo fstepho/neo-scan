@@ -139,6 +139,7 @@ defmodule NeoscanWeb.Controllers.Helpers do
     end
   end
 
+  defp parse_type(str, :string), do: str
   defp parse_type(address, :base58), do: Base58.decode(address)
   defp parse_type(integer, :integer), do: String.to_integer(integer)
   defp parse_type(value, :base16), do: Base.decode16!(value, case: :mixed)
