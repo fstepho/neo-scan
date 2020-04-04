@@ -361,8 +361,4 @@ defmodule NeoscanWeb.Api do
     %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
   end
 
-    def get_address_to_address_abstracts(address_hash1, address_hash2, page) do
-    result = Addresses.get_address_to_address_abstracts(address_hash1, address_hash2, page)
-    %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
-  end
 end
