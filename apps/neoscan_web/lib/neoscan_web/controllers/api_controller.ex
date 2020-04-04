@@ -70,7 +70,7 @@ defmodule NeoscanWeb.ApiController do
   end
 
   def get_all_balance(conn, params) do
-    Api.get_all_balance(parsed.symbol)
+    if_valid_query_json(conn, params, @symbol_spec, do: Api.get_all_balance(parsed.symbol))
   end
 
   # used by neon-js
