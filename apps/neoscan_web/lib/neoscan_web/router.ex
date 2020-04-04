@@ -57,6 +57,9 @@ defmodule NeoscanWeb.Router do
     get("/get_claimable/:address", ApiController, :get_claimable)
     get("/get_all_nodes", ApiController, :get_all_nodes)
 
+    # used by nash staking dashboard
+    get("/get_all_balance/:symbol", ApiController, :get_all_balance)
+
     get(
       "/get_last_transactions_by_address/:address",
       ApiController,

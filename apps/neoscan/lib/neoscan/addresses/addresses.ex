@@ -58,6 +58,29 @@ defmodule Neoscan.Addresses do
     Enum.map(result, &format_balance/1)
   end
 
+  def get_all_balances(symbol) do
+    result =
+      Repo.all(
+        from(
+          ab in AddressBalance,
+          join: a in Asset,
+          on: ab.asset_hash == a.transaction_hash,
+          where: a.symbol == ^symbol,
+          select: %{
+            name: a.name,
+            symbol: a.symbol,
+            asset: ab.asset_hash,
+            value: ab.value,
+            precision: a.precision,
+            type: a.type,
+            address_hash: ab.address_hash
+          }
+        )
+      )
+
+    Enum.map(result, &format_balance/1)
+  end
+
   # todo remove
   defp format_balance(%{name: name, value: value, precision: precision, type: type} = balance) do
     %{balance | name: Asset.filter_name(name), value: Asset.compute_value(value, precision, type)}

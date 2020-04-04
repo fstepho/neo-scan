@@ -39,6 +39,24 @@ defmodule NeoscanWeb.Api do
     %{:address => Base58.encode(address_hash), :balance => balances}
   end
 
+
+
+  def get_all_balance(symbol) do
+    balances = Addresses.get_all_balances(symbol)
+    balances =
+      Enum.map(balances, fn %{name: name, asset: asset_hash, symbol: asset_symbol, value: value, address_hash: address_hash} ->
+        %{
+          asset_hash: Base.encode16(asset_hash, case: :lower),
+          asset_symbol: asset_symbol || name,
+          asset: name,
+          amount: value, 
+          address: Base58.encode(address_hash)
+        }
+      end)
+
+    %{:balance => balances}
+  end
+
   @spec get_gas_generated(binary(), integer(), integer()) :: Decimal.t()
   def get_gas_generated(address_hash, start_block, end_block) do
     vouts = Transactions.get_vouts(address_hash, start_block, end_block)
@@ -339,6 +357,11 @@ defmodule NeoscanWeb.Api do
   defp render_transaction_abstract_address(address_hash, _), do: Base58.encode(address_hash)
 
   def get_address_to_address_abstracts(address_hash1, address_hash2, page) do
+    result = Addresses.get_address_to_address_abstracts(address_hash1, address_hash2, page)
+    %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
+  end
+
+    def get_address_to_address_abstracts(address_hash1, address_hash2, page) do
     result = Addresses.get_address_to_address_abstracts(address_hash1, address_hash2, page)
     %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
   end

@@ -8,6 +8,13 @@ defmodule NeoscanWeb.ApiController do
       type: :base58
     }
   ]
+
+  @symbol_spec [
+    symbol: %{
+      type: :string
+    }
+  ]
+  
   @address_page_spec [
     address: %{
       type: :base58
@@ -53,6 +60,17 @@ defmodule NeoscanWeb.ApiController do
 
   def get_balance(conn, params) do
     if_valid_query_json(conn, params, @address_spec, do: Api.get_balance(parsed.address))
+  end
+
+  # used by nash staking dashboard
+  api :GET, "/api/main_net/v1/get_all_balance/:symbol" do
+    title("Get all address balance for symbol")
+    description("Returns the balances for a NEP5 Token.")
+    parameter(:symbol, :string, description: "token symbol")
+  end
+
+  def get_all_balance(conn, params) do
+    if_valid_query_json(conn, params, @symbol_spec, do: Api.get_all_balance(parsed.symbol))
   end
 
   # used by neon-js
