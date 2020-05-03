@@ -17,7 +17,7 @@ defmodule NeoscanWeb.ApiController do
   @symbol_page_spec [
     symbol: %{
       type: :string
-    }
+    },
     page: %{
       type: :integer,
       default: 1
