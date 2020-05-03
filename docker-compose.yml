@@ -8,6 +8,10 @@ services:
     networks:
       - internal
     restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   phoenix:
     container_name: "phoenixdev"
@@ -28,6 +32,10 @@ services:
       - traefik.port=4000
       - "traefik.docker.network=web"
     restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   web:
