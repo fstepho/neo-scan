@@ -109,7 +109,7 @@ defmodule Neoscan.Transactions do
     %{result | entries: Enum.map(result.entries, &add_extra/1)}
   end
 
-  def get_for_asset(symbol, page) do
+  def get_for_asset(page) do
     transaction_query =
       from(
         t in Transaction,
