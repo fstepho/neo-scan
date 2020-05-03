@@ -16,7 +16,7 @@ defmodule NeoscanWeb.ApiController do
   ]
   @asset_page_spec [
     asset: %{
-      type: :base58
+      type: :base16
     },
     page: %{
       type: :integer,
