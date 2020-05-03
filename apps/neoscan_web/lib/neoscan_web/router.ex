@@ -59,13 +59,9 @@ defmodule NeoscanWeb.Router do
 
     # used by nash staking dashboard
     get("/get_all_balance/:symbol", ApiController, :get_all_balance)
+   
     get(
-      "/get_last_transactions_by_asset/:symbol",
-      ApiController,
-      :get_last_transactions_by_asset
-    )
-    get(
-      "/get_last_transactions_by_asset/:symbol/:page",
+      "/get_last_transactions_by_asset/:page",
       ApiController,
       :get_last_transactions_by_asset
     )
