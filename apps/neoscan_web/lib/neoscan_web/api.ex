@@ -305,12 +305,6 @@ defmodule NeoscanWeb.Api do
     transactions = Transactions.get_for_address(address_hash, page)
     Enum.map(transactions, &render_last_transaction/1)
   end
-
-  # used by nash staking dashboard
-  def get_last_transactions_by_asset(symbol, page) do
-    transactions = Transactions.get_for_asset(symbol, page)
-    Enum.map(transactions, &render_transaction/1)
-  end
   
   def get_all_nodes do
     NeoscanNode.get_live_nodes()
