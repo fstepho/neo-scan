@@ -83,10 +83,10 @@ defmodule NeoscanWeb.ApiController do
   end
 
   # used by Nash Staking dashboard
-  api :GET, "/api/main_net/v1/get_asset_transaction_abstracts/:address/:page" do
+  api :GET, "/api/main_net/v1/get_asset_transaction_abstracts/:asset/:page" do
     title("Get address transactions summary for asset")
     description("Returns transaction summary an address from its asset, paginated")
-    parameter(:asset, :string, description: "base 58 address")
+    parameter(:asset, :string, description: "base 58 asset")
     parameter(:page, :integer, description: "page")
   end
 
