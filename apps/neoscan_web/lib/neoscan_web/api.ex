@@ -307,9 +307,9 @@ defmodule NeoscanWeb.Api do
   end
 
   # used by nash staking dashboard
-  def get_last_transactions_by_asset(page) do
-    transactions = Transactions.get_for_asset(page)
-    Enum.map(transactions, &render_last_transaction/1)
+  def get_last_transactions_by_asset(symbol, page) do
+    transactions = Transactions.get_for_asset(symbol, page)
+    Enum.map(transactions, &render_transaction/1)
   end
   
   def get_all_nodes do
@@ -321,6 +321,12 @@ defmodule NeoscanWeb.Api do
     %{:height => Blocks.last_index()}
   end
 
+  # used by nash staking dashboard
+  def get_asset_transaction_abstracts(asset_hash, page) do
+    result = Addresses.get_asset_transaction_abstracts(asset_hash, page)
+    %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
+  end
+  
   def get_address_transaction_abstracts(address_hash, start_timestamp, end_timestamp, limit) do
     result =
       Addresses.get_transaction_abstracts(address_hash, start_timestamp, end_timestamp, limit)
