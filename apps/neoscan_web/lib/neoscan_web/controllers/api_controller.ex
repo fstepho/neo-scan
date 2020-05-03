@@ -15,9 +15,6 @@ defmodule NeoscanWeb.ApiController do
     }
   ]
   @symbol_page_spec [
-    symbol: %{
-      type: :string
-    },
     page: %{
       type: :integer,
       default: 1
@@ -83,15 +80,13 @@ defmodule NeoscanWeb.ApiController do
   end
 
   # used by nash staking dashboard
-  api :GET, "/api/main_net/v1/get_last_transactions_by_asset/:symbol/:page" do
+  api :GET, "/api/main_net/v1/get_last_transactions_by_asset/:page" do
     title("Get asset last transactions")
 
     description("""
       Returns the last 500 transaction models in the chain for the selected asset
       from its hash, paginated.
     """)
-
-    parameter(:symbol, :string, description: "tokenk symbol", optional: true)
     parameter(:page, :integer, description: "page index", optional: true)
   end
 
