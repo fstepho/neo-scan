@@ -109,6 +109,47 @@ defmodule Neoscan.Transactions do
     %{result | entries: Enum.map(result.entries, &add_extra/1)}
   end
 
+  def get_for_asset(symbol, page) do
+    transaction_query =
+      from(
+        t in Transaction,
+        join: ass in Asset,
+        on: ass.transaction_hash == t.hash,
+        where: ass.symbol == ^symbol
+        preload: [{:transfers, ^transfer_query()}, :asset],
+        order_by: [desc: at.transaction_id],
+        select: t
+      )
+      result =
+        Repo.paginate(
+          transaction_query,
+          page: page,
+          page_size: 500
+        )
+      %{result | entries: Enum.map(result.entries, &add_transfers/1)}
+  end
+
+  defp add_transfers(nil), do: nil
+
+  defp add_transfers(transaction) do
+    vouts = []
+    vins = []
+    claims = []
+
+    vouts = Enum.map(vouts, &Asset.update_struct/1)
+    vins = Enum.map(vins, &Asset.update_struct/1)
+    claims = Enum.map(claims, &Asset.update_struct/1)
+    transfers = Enum.map(transaction.transfers, &Asset.update_struct/1)
+    asset = Asset.update_name(transaction.asset)
+
+    transaction
+    |> Map.put(:vins, vins)
+    |> Map.put(:vouts, vouts)
+    |> Map.put(:claims, claims)
+    |> Map.put(:transfers, transfers)
+    |> Map.put(:asset, asset)
+  end
+
   defp add_extra(nil), do: nil
 
   defp add_extra(transaction) do

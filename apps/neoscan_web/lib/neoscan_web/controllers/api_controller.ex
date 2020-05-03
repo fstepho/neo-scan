@@ -14,7 +14,16 @@ defmodule NeoscanWeb.ApiController do
       type: :string
     }
   ]
-  
+  @symbol_page_spec [
+    symbol: %{
+      type: :string
+    }
+    page: %{
+      type: :integer,
+      default: 1
+    }
+  ]
+
   @address_page_spec [
     address: %{
       type: :base58
@@ -71,6 +80,25 @@ defmodule NeoscanWeb.ApiController do
 
   def get_all_balance(conn, params) do
     if_valid_query_json(conn, params, @symbol_spec, do: Api.get_all_balance(parsed.symbol))
+  end
+
+  # used by nash staking dashboard
+  api :GET, "/api/main_net/v1/get_last_transactions_by_asset/:symbol/:page" do
+    title("Get asset last transactions")
+
+    description("""
+      Returns the last 500 transaction models in the chain for the selected asset
+      from its hash, paginated.
+    """)
+
+    parameter(:symbol, :string, description: "tokenk symbol")
+    parameter(:page, :integer, description: "page index", optional: true)
+  end
+
+  def get_last_transactions_by_asset(conn, params) do
+    if_valid_query_json conn, params, @symbol_page_spec do
+      Api.get_last_transactions_by_asset(parsed.symbol, parsed.page)
+    end
   end
 
   # used by neon-js

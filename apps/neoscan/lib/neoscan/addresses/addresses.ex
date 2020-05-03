@@ -58,6 +58,7 @@ defmodule Neoscan.Addresses do
     Enum.map(result, &format_balance/1)
   end
 
+  # used by nash staking dashboard
   def get_all_balances(symbol) do
     result =
       Repo.all(
