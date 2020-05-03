@@ -117,7 +117,7 @@ defmodule Neoscan.Transactions do
         on: ass.transaction_hash == t.hash,
         where: ass.symbol == ^symbol,
         preload: [{:transfers, ^transfer_query()}, :asset],
-        order_by: [desc: at.transaction_id],
+        order_by: [desc: t.id],
         select: t
       )
       result =
