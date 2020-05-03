@@ -91,13 +91,13 @@ defmodule NeoscanWeb.ApiController do
       from its hash, paginated.
     """)
 
-    parameter(:symbol, :string, description: "tokenk symbol")
+    parameter(:symbol, :string, description: "tokenk symbol", optional: true)
     parameter(:page, :integer, description: "page index", optional: true)
   end
 
   def get_last_transactions_by_asset(conn, params) do
     if_valid_query_json conn, params, @symbol_page_spec do
-      Api.get_last_transactions_by_asset(parsed.symbol, parsed.page)
+      Api.get_last_transactions_by_asset(parsed.page)
     end
   end
 

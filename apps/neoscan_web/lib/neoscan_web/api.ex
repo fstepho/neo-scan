@@ -307,8 +307,8 @@ defmodule NeoscanWeb.Api do
   end
 
   # used by nash staking dashboard
-  def get_last_transactions_by_asset(symbol, page) do
-    transactions = Transactions.get_for_asset(symbol, page)
+  def get_last_transactions_by_asset(page) do
+    transactions = Transactions.get_for_asset(page)
     Enum.map(transactions, &render_transaction/1)
   end
   
