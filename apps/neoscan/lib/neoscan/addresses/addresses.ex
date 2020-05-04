@@ -275,6 +275,7 @@ defmodule Neoscan.Addresses do
         atb in AddressTransactionBalance,
         distinct: atb.address_hash,
         where: atb.asset_hash == ^asset_hash,
+        preload: [:transaction],
         order_by: [atb.transaction_id]
       )
       Repo.paginate(transaction_query,
