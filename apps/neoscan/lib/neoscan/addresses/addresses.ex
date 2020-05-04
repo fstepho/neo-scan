@@ -268,11 +268,30 @@ defmodule Neoscan.Addresses do
     %{result | entries: create_transaction_abstracts(result.entries)}
   end
 
+  # Used by Nash staking Dashboard
+  def get_first_seen_transaction_abstracts_raw(asset_hash, page) do
+    transaction_query =
+      from(
+        atb in AddressTransactionBalance,
+        distinct: atb.address_hash,
+        where: atb.asset_hash == ^asset_hash,
+        order_by: [atb.transaction_id]
+      )
+      Repo.paginate(transaction_query,
+        page: page,
+        page_size: 1000
+      )
+  end
+  def get_first_seen_transaction_abstracts(asset_hash, page) do
+    result = get_first_seen_transaction_abstracts_raw(asset_hash, page)
+    %{result | entries: create_transaction_abstracts(result.entries)}
+  end
+
+
   def get_transaction_abstracts(address_hash, start_timestamp, end_timestamp, limit) do
     result = get_transaction_abstracts_raw(address_hash, start_timestamp, end_timestamp, limit)
     create_transaction_abstracts(result)
   end
-
   def get_address_to_address_abstracts(address_hash1, address_hash2, page) do
     transaction_query =
       from(

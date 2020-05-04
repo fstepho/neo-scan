@@ -320,7 +320,12 @@ defmodule NeoscanWeb.Api do
     result = Addresses.get_asset_transaction_abstracts(asset_hash, page)
     %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
   end
-  
+  # used by nash staking dashboard
+  def get_first_seen_transaction_abstracts(asset_hash, page) do
+    result = Addresses.get_first_seen_transaction_abstracts(asset_hash, page)
+    %{result | entries: Enum.map(result.entries, &render_transaction_abstract/1)}
+  end
+    
   def get_address_transaction_abstracts(address_hash, start_timestamp, end_timestamp, limit) do
     result =
       Addresses.get_transaction_abstracts(address_hash, start_timestamp, end_timestamp, limit)

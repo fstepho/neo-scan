@@ -89,13 +89,28 @@ defmodule NeoscanWeb.ApiController do
     parameter(:asset, :string, description: "base 58 asset")
     parameter(:page, :integer, description: "page")
   end
-
   def get_asset_transaction_abstracts(conn, params) do
     if_valid_query_json(
       conn,
       params,
       @asset_page_spec,
       do: Api.get_asset_transaction_abstracts(parsed.asset, parsed.page)
+    )
+  end
+
+  # used by Nash Staking dashboard
+  api :GET, "/api/main_net/v1/get_first_seen_transaction_abstracts/:asset/:page" do
+    title("Get first seen address transaction summary for asset")
+    description("Returns first seen transaction summary an address from its asset, paginated")
+    parameter(:asset, :string, description: "base 58 asset")
+    parameter(:page, :integer, description: "page")
+  end
+  def get_first_seen_transaction_abstracts(conn, params) do
+    if_valid_query_json(
+      conn,
+      params,
+      @asset_page_spec,
+      do: Api.get_first_seen_transaction_abstracts(parsed.asset, parsed.page)
     )
   end
 

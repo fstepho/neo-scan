@@ -94,3 +94,8 @@ Restore:
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+## INDEX CREATION FOR NASH STAKING DASHBOARD
+`docker exec -it container_id bash`
+neoscan_dev=# `root@dcd042734e21:/# psql neoscan_dev postgres`
+`CREATE INDEX address_transaction_balances_nsd_1 ON address_transaction_balances (asset_hash, transaction_id DESC);`
