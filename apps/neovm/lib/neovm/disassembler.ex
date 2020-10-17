@@ -267,11 +267,11 @@ defmodule NeoVM.Disassembler do
         if num > 1 and num < 75 do
           {to_string(num), "PUSHBYTES"}
         else
-          {"parsing error", ""}
+          {to_string(num), "parsing error 1"}
         end
 
       :error ->
-        {"parsing error", ""}
+        {str, "parsing error 2"}
     end
   end
 
